@@ -198,7 +198,7 @@ const data = [
   Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
   Refresh the page to see the new article.
 */
-let num = 0;
+
 articleMaker = (article, num) => {
   const div = document.createElement('div');
   const title = document.createElement('h2');
@@ -216,6 +216,7 @@ div.appendChild(p3);
 div.appendChild(expand);
 
 div.classList.add('article');
+div.classList.add(`article${num}`)
 date.classList.add('date');
 expand.classList.add('expandButton');
 expand.classList.add(num);
@@ -229,15 +230,17 @@ expand.textContent = "Click to Expand";
  
 expand.addEventListener('click', () => {
   div.classList.toggle('article-open')
-  let id = document.getElementsByClassName(num)[0];
-  console.log(id)
-  if (div.classList.contains('article-open') && expand.classList.contains(id)){
-    gsap.to(".article", {duration: 2, height: '400px'});
+  let id = event.target.classList[1];
+  if (
+      div.classList.contains('article-open') && 
+      expand.classList.contains(id)
+  ) {
+    gsap.to(`.article${id}`, {duration: 2, height: '400px'});
     expand.textContent = "Click to Close";
     console.log("open")
   }
   else{
-    gsap.to(".article", {duration: 2, height: '50px'});
+    gsap.to(`.article${id}`, {duration: 2, height: '50px'});
     expand.textContent = "Click to Expand";
     console.log("close")
   }
@@ -246,7 +249,7 @@ return div;
 }
 
 
-
+let num = 0;
 const articles = document.getElementsByClassName('articles')[0];
 data.forEach(element => 
   articles.append(articleMaker(element, num++))
