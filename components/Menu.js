@@ -51,8 +51,12 @@ menuMaker = (menuItems) => {
 
   menuButton.addEventListener('click', () => {
     div.classList.toggle('menu--open')
-    gsap.to(".menu--open", {duration: 1, x: 350});
-    gsap.fromTo(".menu", {duration: 1, x: -350});
+    if (div.classList.contains('menu--open')){
+      gsap.to(".menu", {duration: 2, x: 350});
+    }
+    else{
+      gsap.fromTo(".menu", {x:350}, {duration: 2, x: -350});
+    }
   })
 
   
